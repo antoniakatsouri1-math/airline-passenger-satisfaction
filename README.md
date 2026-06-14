@@ -78,12 +78,12 @@ This is a useful prediction task because understanding what drives passenger sat
 ## 5. PCA Insights
 
 - **61 components** needed to explain 90% of total variance
-- First 2 components show **partial separation** between satisfied/not satisfied passengers
+- First 2 components show partial separation between satisfied/not satisfied passengers
 - Features with highest loadings on PC1: `boarding_lounge_comfort`, `overall_airport_cleanliness`, `restrooms`
 - Consistent with EDA correlation findings
 
-![PCA Scree Plot](src/plots/pca_scree.png)
-![PCA 2D Projection](src/plots/pca_2d.png)
+![PCA Scree Plot](SRC/plots/pca_scree.png)
+![PCA 2D Projection](SRC/plots/pca_2d.png)
 
 ---
 
@@ -103,10 +103,21 @@ All models evaluated on the **test set only** (5,752 samples).
 - The **Neural Network outperformed both classical models** on all metrics
 - Random Forest had the highest Recall (86.09%) but lower Precision
 - Logistic Regression performed competitively after StandardScaler was applied
-- The Neural Network used early stopping (stopped at epoch 17), suggesting fast convergence on this dataset
+- The Neural Network used early stopping (stopped at epoch 17), suggesting fast convergence
 - The performance gap between models is small (~1-2%), suggesting the features are informative regardless of model complexity
 
-![Model Comparison](src/plots/model_comparison.png)
+![Model Comparison](Models/plots/model_comparison.png)
+
+### Confusion Matrices
+![Confusion Matrix - Random Forest](Models/plots/confusion_matrix_Random_Forest.png)
+![Confusion Matrix - Logistic Regression](Models/plots/confusion_matrix_Logistic_Regression.png)
+
+### ROC Curves
+![ROC Curve - Random Forest](Models/plots/roc_curve_Random_Forest.png)
+![ROC Curve - Logistic Regression](Models/plots/roc_curve_Logistic_Regression.png)
+
+### Feature Importance (Random Forest)
+![Feature Importance](Models/plots/feature_importance.png)
 
 ---
 
@@ -130,25 +141,27 @@ Input(84) → Linear(128) → ReLU → Dropout(0.3)
 
 ---
 
-## EDA Highlights
+## 📊 EDA Highlights
 
-### Key Findings
-| Finding | Detail |
-|---------|--------|
-| **#1 driver of satisfaction** | `boarding_lounge_comfort` (r=0.55) |
-| **Biggest pain point** | Food & retail prices (rated ~2/5) |
-| **Most satisfied group** | Ages 18-25, Sports travelers |
-| **Least satisfied group** | Ages 36-45, Business travelers |
-| **Statistically significant** | process, age_group, trip_purpose, traveling_alone |
-| **Not significant** | flight_type, gender |
-| **Traveling with company** | Slightly more satisfied (51.6% vs 47.5%) |
+### Satisfaction Rate by Age Group
+![Satisfaction by Age Group](plots/liked_by_age_group.png)
 
-![Top 10 Correlations](EDA/plots/top10_correlations.png)
-![Lowest Rated Services](EDA/plots/lowest_rated_services.png)
+### Satisfaction Rate by Trip Purpose
+![Satisfaction by Trip Purpose](plots/liked_by_trip_purpose.png)
+
+### Top 10 Features Correlated with Satisfaction
+![Top 10 Correlations](plots/top10_correlations.png)
+
+### 10 Lowest Rated Services
+![Lowest Rated Services](plots/lowest_rated_services.png)
+
+### Business vs Leisure
+![Business vs Leisure](plots/business_vs_leisure.png)
+
+### Correlation Heatmap
+![Correlation Heatmap](plots/heatmap_top_features.png)
 
 ---
-
-
 ## Installation & Execution
 
 ```bash
@@ -168,6 +181,7 @@ python main.py
 ```
 
 Results are saved in:
-- `EDA/plots/` — EDA visualizations
-- `src/plots/` — Model plots
-- `models/` — Trained models & scaler
+- `plots/` — EDA visualizations
+- `Models/plots/` — Model evaluation plots
+- `SRC/plots/` — PCA & Neural Network plots
+- `Models/` — Trained models & scaler
