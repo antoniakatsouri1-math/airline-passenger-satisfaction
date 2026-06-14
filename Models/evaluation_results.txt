@@ -3,6 +3,6 @@
 Model                                                            
 Random Forest          0.8044     0.7735  0.8609  0.8149   0.8832
 Logistic Regression    0.8075     0.7890  0.8397  0.8135   0.8811
-Neural Network         0.8161     0.7895  0.8620  0.8241   0.8959
+Neural Network         0.8176     0.7969  0.8526  0.8238   0.8963
 
 Best model (F1): Neural Network

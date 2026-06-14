@@ -1,13 +1,13 @@
 === Rating Statistics ===
-       disembarkation_method_rating  curbside_dropoff_ease  transport_options_to_airport  ...  baggage_integrity  arrival_lead_time  connection_wait_time
-count                        330.00               20958.00                      16829.00  ...            4490.00           22307.00              10975.00
-mean                           3.74                   4.13                          3.81  ...               3.03            7190.36               8981.22
-std                            1.17                   0.95                          1.06  ...               1.36            2737.40               2688.52
-min                            1.00                   1.00                          1.00  ...               1.00            2700.00               2700.00
-25%                            3.00                   4.00                          3.00  ...               2.00            4500.00               6300.00
-50%                            4.00                   4.00                          4.00  ...               3.00            6300.00              10800.00
-75%                            5.00                   5.00                          5.00  ...               4.00            9900.00              10800.00
-max                            5.00                   5.00                          5.00  ...               5.00           10800.00              10800.00
+       disembarkation_method_rating  ...  connection_wait_time
+count                        330.00  ...              10975.00
+mean                           3.74  ...               8981.22
+std                            1.17  ...               2688.52
+min                            1.00  ...               2700.00
+25%                            3.00  ...               6300.00
+50%                            4.00  ...              10800.00
+75%                            5.00  ...              10800.00
+max                            5.00  ...              10800.00
 
 [8 rows x 62 columns]
 
@@ -18,10 +18,12 @@ Disembarkation    0.515
 Name: liked, dtype: float64
 
 === Cross-tab: Gender x Age Group ===
-age_group  18 to 25 years  26 to 35 years  36 to 45 years  46 to 55 years  56 to 65 years  Over 65 years
-gender                                                                                                  
-Female              0.589           0.479           0.454           0.492           0.473          0.513
-Male                0.610           0.507           0.451           0.443           0.463          0.497
+age_group  18 to 25 years  26 to 35 years  ...  56 to 65 years  Over 65 years
+gender                                     ...                               
+Female              0.589           0.479  ...           0.473          0.513
+Male                0.610           0.507  ...           0.463          0.497
+
+[2 rows x 6 columns]
 
 === Satisfaction ανά Traveling Alone ===
 traveling_alone

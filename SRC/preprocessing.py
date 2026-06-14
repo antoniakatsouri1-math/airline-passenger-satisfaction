@@ -7,12 +7,11 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 
-os.makedirs('models', exist_ok=True)
-os.makedirs('src/plots', exist_ok=True)
+os.makedirs('Models', exist_ok=True)
+os.makedirs('SRC/plots', exist_ok=True)
 
 def load_data():
     df = pd.read_csv('data/dataset.csv')
-
     df = df.replace('<null>', np.nan)
 
     if 'connection_wait_time' in df.columns:
@@ -29,7 +28,6 @@ def split_data(df):
     X_temp, X_test, y_temp, y_test = train_test_split(
         X, y, test_size=0.10, random_state=42, stratify=y
     )
-
     X_train, X_val, y_train, y_val = train_test_split(
         X_temp, y_temp, test_size=0.111, random_state=42, stratify=y_temp
     )
@@ -39,9 +37,7 @@ def split_data(df):
 
 def drop_unnecessary_cols(X_train, X_val, X_test):
     drop_cols = [col for col in X_train.columns if '_is_applicable' in col]
-
     drop_cols += ['flight_type', 'gender']
-
     drop_cols = [col for col in drop_cols if col in X_train.columns]
 
     return (X_train.drop(columns=drop_cols),
@@ -87,12 +83,16 @@ def encode_categoricals(X_train, X_val, X_test):
     for col in cat_cols:
         le = LabelEncoder()
         X_train[col] = le.fit_transform(X_train[col].astype(str))
-        # Handle unseen labels in val/test
         X_val[col] = X_val[col].astype(str).map(
             lambda x: le.transform([x])[0] if x in le.classes_ else -1)
         X_test[col] = X_test[col].astype(str).map(
             lambda x: le.transform([x])[0] if x in le.classes_ else -1)
         encoders[col] = le
+
+    # Αποθήκευση encoders για χρήση στο API
+    with open('Models/encoders.pkl', 'wb') as f:
+        pickle.dump(encoders, f)
+    print("Encoders saved ✓")
 
     return X_train, X_val, X_test
 
@@ -118,10 +118,18 @@ def scale_features(X_train, X_val, X_test):
     X_val_scaled = scaler.transform(X_val)
     X_test_scaled = scaler.transform(X_test)
 
-    with open('models/scaler.pkl', 'wb') as f:
+    with open('Models/scaler.pkl', 'wb') as f:
         pickle.dump(scaler, f)
 
-    print("Scaler saved ✓")
+    with open('Models/feature_names.pkl', 'wb') as f:
+        pickle.dump(X_train.columns.tolist(), f)
+
+    # Αποθήκευση medians για missing features στο API
+    medians = X_train.median().to_dict()
+    with open('Models/medians.pkl', 'wb') as f:
+        pickle.dump(medians, f)
+
+    print("Scaler, feature names & medians saved ✓")
     return X_train_scaled, X_val_scaled, X_test_scaled, scaler
 
 def run_pca(X_train_scaled, y_train):
@@ -137,7 +145,7 @@ def run_pca(X_train_scaled, y_train):
     ax.set_ylabel('Cumulative Explained Variance')
     ax.legend()
     plt.tight_layout()
-    plt.savefig('src/plots/pca_scree.png')
+    plt.savefig('SRC/plots/pca_scree.png')
     plt.close()
 
     pca2 = PCA(n_components=2, random_state=42)
@@ -150,7 +158,7 @@ def run_pca(X_train_scaled, y_train):
     ax.set_xlabel('PC1')
     ax.set_ylabel('PC2')
     plt.tight_layout()
-    plt.savefig('src/plots/pca_2d.png')
+    plt.savefig('SRC/plots/pca_2d.png')
     plt.close()
 
     n_90 = np.argmax(explained >= 0.90) + 1
