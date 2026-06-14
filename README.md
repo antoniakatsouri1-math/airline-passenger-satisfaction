@@ -104,26 +104,58 @@ All models evaluated on the **test set only** (5,752 samples).
 
 ![Model Comparison](SRC/plots/model_comparison.png)
 
-### Confusion Matrices
-![Confusion Matrix - Random Forest](SRC/plots/confusion_matrix_Random_Forest.png)
-![Confusion Matrix - Logistic Regression](SRC/plots/confusion_matrix_Logistic_Regression.png)
-![Confusion Matrix - Neural Network](SRC/plots/confusion_matrix_Neural_Network.png)
-
 ### ROC Curves
+
 ![ROC Curve - Random Forest](SRC/plots/roc_curve_Random_Forest.png)
+
+**Random Forest (AUC=0.883):** Strong discriminative ability. The curve rises steeply at low False Positive Rates, meaning the model correctly identifies most satisfied passengers before making many errors.
+
 ![ROC Curve - Logistic Regression](SRC/plots/roc_curve_Logistic_Regression.png)
+
+**Logistic Regression (AUC=0.881):** Very similar to Random Forest. Slightly lower AUC but comparable shape, confirming that the relationship between features and satisfaction is largely linear.
+
 ![ROC Curve - Neural Network](SRC/plots/roc_curve_Neural_Network.png)
 
-### Feature Importance (Random Forest)
-![Feature Importance](SRC/plots/rf_feature_importance.png)
-
-### Logistic Regression Coefficients
-![LR Coefficients](SRC/plots/lr_coefficients.png)
-
-### Neural Network Loss Curves
-![NN Loss Curves](SRC/plots/nn_loss_curves.png)
+**Neural Network (AUC=0.895):** Highest AUC of all three models. The curve hugs the top-left corner more tightly, indicating better discrimination between satisfied and dissatisfied passengers across all thresholds.
 
 ---
+### ROC Curves
+
+![ROC Curve - Random Forest](SRC/plots/roc_curve_Random_Forest.png)
+
+**Random Forest (AUC=0.883):** Strong discriminative ability. The curve rises steeply at low False Positive Rates, meaning the model correctly identifies most satisfied passengers before making many errors.
+
+![ROC Curve - Logistic Regression](SRC/plots/roc_curve_Logistic_Regression.png)
+
+**Logistic Regression (AUC=0.881):** Very similar to Random Forest. Slightly lower AUC but comparable shape, confirming that the relationship between features and satisfaction is largely linear.
+
+![ROC Curve - Neural Network](SRC/plots/roc_curve_Neural_Network.png)
+
+**Neural Network (AUC=0.895):** Highest AUC of all three models. The curve hugs the top-left corner more tightly, indicating better discrimination between satisfied and dissatisfied passengers across all thresholds.
+
+---
+### Feature Importance (Random Forest)
+
+![Feature Importance](SRC/plots/rf_feature_importance.png)
+
+The Random Forest identifies `location_and_movement` as the single most important feature (importance ≈ 0.18), followed by `boarding_lounge_comfort` and the engineered `comfort_score`. This confirms our EDA finding that physical comfort and navigation within the airport are the primary drivers of satisfaction. Notably, our engineered features (`comfort_score`, `cleanliness_score`) appear in the top 5, validating the feature engineering step.
+
+---
+
+
+### Logistic Regression Coefficients
+
+![LR Coefficients](SRC/plots/lr_coefficients.png)
+
+The Logistic Regression assigns the highest absolute coefficient to `location_and_movement` (≈ 0.9), consistent with the Random Forest. `baggage_claim_process` and `boarding_lounge_comfort` follow closely. The model also highlights `connection` type and `trips_last_12_months` as influential — frequent travelers and those with direct connections tend to be more satisfied. This linear model provides highly interpretable weights directly tied to satisfaction probability.
+
+---
+
+### Neural Network Loss Curves
+
+![NN Loss Curves](SRC/plots/nn_loss_curves.png)
+
+The training loss decreases steadily across all 19 epochs, while the validation loss plateaus around epoch 5-7 and then slightly increases — a classic sign of mild overfitting. Early stopping correctly triggered at epoch 19, restoring the best weights from the lowest validation loss. The gap between train and validation loss is small, suggesting the model generalizes well to unseen data. The fast convergence (only 19 epochs) reflects the high informativeness of the features.
 
 ## 7. Best Model Designation
 
