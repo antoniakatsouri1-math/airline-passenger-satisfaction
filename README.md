@@ -2,12 +2,8 @@
 
 End-to-end machine learning pipeline for predicting airline passenger satisfaction.
 
-##  Dataset
-
 - **Source:** [Kaggle - Real Airline Passenger Satisfaction Dataset](https://www.kaggle.com/datasets/rustam32/real-airline-passenger-satisfaction-dataset)
-- **Samples:** 57,514
-- **Features:** 145
-- **Target variable:** `liked` (0 = Not Satisfied, 1 = Satisfied)
+- **Samples:** 57,514 | **Features:** 145 | **Target:** `liked` (0 = Not Satisfied, 1 = Satisfied)
 
 ---
 
@@ -93,39 +89,47 @@ All models evaluated on the **test set only** (5,752 samples).
 
 | Metric | Random Forest | Logistic Regression | Neural Network |
 |--------|--------------|---------------------|----------------|
-| Accuracy | 80.44% | 80.75% | **81.73%** |
-| Precision | 77.35% | 78.90% | **79.75%** |
-| Recall | 86.09% | 83.97% | **85.05%** |
-| F1-score | 81.49% | 81.35% | **82.32%** |
-| AUC-ROC | 88.32% | 88.11% | **89.46%** |
+| Accuracy | 80.44% | 80.75% | **81.61%** |
+| Precision | 77.35% | 78.90% | **78.95%** |
+| Recall | 86.09% | 83.97% | **86.20%** |
+| F1-score | 81.49% | 81.35% | **82.41%** |
+| AUC-ROC | 88.32% | 88.11% | **89.59%** |
 
 ### Discussion
 - The **Neural Network outperformed both classical models** on all metrics
-- Random Forest had the highest Recall (86.09%) but lower Precision
+- Random Forest had the highest Recall but lower Precision
 - Logistic Regression performed competitively after StandardScaler was applied
-- The Neural Network used early stopping (stopped at epoch 17), suggesting fast convergence
+- The Neural Network used early stopping, suggesting fast convergence on this dataset
 - The performance gap between models is small (~1-2%), suggesting the features are informative regardless of model complexity
 
-![Model Comparison](Models/plots/model_comparison.png)
+![Model Comparison](SRC/plots/model_comparison.png)
 
 ### Confusion Matrices
-![Confusion Matrix - Random Forest](Models/plots/confusion_matrix_Random_Forest.png)
-![Confusion Matrix - Logistic Regression](Models/plots/confusion_matrix_Logistic_Regression.png)
+![Confusion Matrix - Random Forest](SRC/plots/confusion_matrix_Random_Forest.png)
+![Confusion Matrix - Logistic Regression](SRC/plots/confusion_matrix_Logistic_Regression.png)
+![Confusion Matrix - Neural Network](SRC/plots/confusion_matrix_Neural_Network.png)
 
 ### ROC Curves
-![ROC Curve - Random Forest](Models/plots/roc_curve_Random_Forest.png)
-![ROC Curve - Logistic Regression](Models/plots/roc_curve_Logistic_Regression.png)
+![ROC Curve - Random Forest](SRC/plots/roc_curve_Random_Forest.png)
+![ROC Curve - Logistic Regression](SRC/plots/roc_curve_Logistic_Regression.png)
+![ROC Curve - Neural Network](SRC/plots/roc_curve_Neural_Network.png)
 
 ### Feature Importance (Random Forest)
-![Feature Importance](Models/plots/feature_importance.png)
+![Feature Importance](SRC/plots/rf_feature_importance.png)
+
+### Logistic Regression Coefficients
+![LR Coefficients](SRC/plots/lr_coefficients.png)
+
+### Neural Network Loss Curves
+![NN Loss Curves](SRC/plots/nn_loss_curves.png)
 
 ---
 
 ## 7. Best Model Designation
 
-**Best model: Neural Network** (`models/best_model.pt`)
+**Best model: Neural Network** (`Models/best_model.pt`)
 
-Justified by highest F1-score (82.32%) and AUC-ROC (89.46%) on the test set.
+Justified by highest F1-score (82.41%) and AUC-ROC (89.59%) on the test set.
 
 ### Architecture
 Input(84) → Linear(128) → ReLU → Dropout(0.3)
@@ -137,17 +141,20 @@ Input(84) → Linear(128) → ReLU → Dropout(0.3)
 → Linear(1)   → Sigmoid
 - **Optimizer:** Adam (lr=0.001)
 - **Loss:** Binary Cross-Entropy
-- **Early stopping:** patience=10, stopped at epoch 17
+- **Early stopping:** patience=10
 
 ---
 
-## 📊 EDA Highlights
+##  EDA Highlights
 
 ### Satisfaction Rate by Age Group
 ![Satisfaction by Age Group](plots/liked_by_age_group.png)
 
 ### Satisfaction Rate by Trip Purpose
 ![Satisfaction by Trip Purpose](plots/liked_by_trip_purpose.png)
+
+### Satisfaction Rate by Process
+![Satisfaction by Process](plots/liked_by_process.png)
 
 ### Top 10 Features Correlated with Satisfaction
 ![Top 10 Correlations](plots/top10_correlations.png)
@@ -162,7 +169,8 @@ Input(84) → Linear(128) → ReLU → Dropout(0.3)
 ![Correlation Heatmap](plots/heatmap_top_features.png)
 
 ---
-## Installation & Execution
+
+##  Installation & Execution
 
 ```bash
 # 1. Clone the repo
@@ -182,6 +190,5 @@ python main.py
 
 Results are saved in:
 - `plots/` — EDA visualizations
-- `Models/plots/` — Model evaluation plots
-- `SRC/plots/` — PCA & Neural Network plots
+- `SRC/plots/` — Model & PCA plots
 - `Models/` — Trained models & scaler
