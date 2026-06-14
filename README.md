@@ -123,7 +123,7 @@ All models evaluated on the **test set only** (5,752 samples).
 
 ## 7. Best Model Designation
 
-** Best model: Neural Network** (`models/best_model.pt`)
+**Best model: Neural Network** (`models/best_model.pt`)
 
 Justified by highest F1-score (82.32%) and AUC-ROC (89.46%) on the test set.
 
