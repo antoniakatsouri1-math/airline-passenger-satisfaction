@@ -192,3 +192,201 @@ Results are saved in:
 - `plots/` — EDA visualizations
 - `SRC/plots/` — Model & PCA plots
 - `Models/` — Trained models & scaler
+---
+
+## FastAPI Endpoint
+
+The best model (Neural Network) is exposed as a REST API using FastAPI.
+
+### Start the API
+
+The API starts automatically after the pipeline completes. To start it manually:
+
+```bash
+python main.py
+```
+
+Then open: **http://127.0.0.1:8000/docs** for the interactive Swagger UI.
+
+### Endpoint
+
+**POST** `/predict`
+
+Accepts passenger data as JSON and returns a satisfaction prediction.
+
+**Response format:**
+```json
+{
+  "prediction": 1,
+  "label": "Satisfied",
+  "probability": 0.9942
+}
+```
+
+---
+
+### Example 1 — Highly Satisfied Passenger 
+
+A young leisure traveler with excellent ratings across all services.
+
+**Input:**
+```json
+{
+  "process": "Boarding",
+  "month": "June",
+  "connection": "Boarded at the airport",
+  "ticket_purchased_by": "By the passenger",
+  "age_group": "18 to 25 years",
+  "trip_purpose": "Leisure",
+  "traveling_alone": "No",
+  "boarding_lounge_comfort": 5,
+  "overall_airport_cleanliness": 5,
+  "restrooms": 5,
+  "restroom_cleanliness": 5,
+  "restroom_maintenance": 5,
+  "parking": 5,
+  "parking_facility_quality": 5,
+  "parking_value_for_money": 5,
+  "baggage_claim_process": 5,
+  "checkin_process": 5,
+  "checkin_queue_wait_time": 1,
+  "security_screening_process": 5,
+  "security_queue_wait_time": 1,
+  "food_beverage_outlets": 5,
+  "food_beverage_price_quality": 5,
+  "retail_outlets": 5,
+  "retail_price_quality": 5,
+  "thermal_comfort": 5,
+  "acoustic_comfort": 5,
+  "airline_service": 5,
+  "staff_courtesy": 5,
+  "seat_availability": 5,
+  "power_outlet_availability": 5,
+  "airport_internet": 5,
+  "signage": 5,
+  "location_and_movement": 5
+}
+```
+
+**Response:**
+```json
+{
+  "prediction": 1,
+  "label": "Satisfied",
+  "probability": 0.9942
+}
+```
+
+**Interpretation:** The model is 99.42% confident this passenger is satisfied. High ratings across all key services (lounge comfort, cleanliness, baggage, food) combined with short queue wait times strongly predict satisfaction.
+
+---
+
+### Example 2 — Dissatisfied Passenger 
+
+A middle-aged business traveler with poor ratings and long queues.
+
+**Input:**
+```json
+{
+  "process": "Disembarkation",
+  "month": "January",
+  "connection": "Connecting",
+  "ticket_purchased_by": "By third parties",
+  "age_group": "36 to 45 years",
+  "trip_purpose": "Business",
+  "traveling_alone": "Yes",
+  "boarding_lounge_comfort": 1,
+  "overall_airport_cleanliness": 1,
+  "restrooms": 1,
+  "restroom_cleanliness": 1,
+  "restroom_maintenance": 1,
+  "parking": 1,
+  "parking_facility_quality": 1,
+  "parking_value_for_money": 1,
+  "baggage_claim_process": 1,
+  "checkin_process": 1,
+  "checkin_queue_wait_time": 5,
+  "security_screening_process": 1,
+  "security_queue_wait_time": 5,
+  "food_beverage_outlets": 1,
+  "food_beverage_price_quality": 1,
+  "retail_outlets": 1,
+  "retail_price_quality": 1,
+  "thermal_comfort": 1,
+  "acoustic_comfort": 1,
+  "airline_service": 1,
+  "staff_courtesy": 1,
+  "seat_availability": 1,
+  "power_outlet_availability": 1,
+  "airport_internet": 1,
+  "signage": 1,
+  "location_and_movement": 1
+}
+```
+
+**Response:**
+```json
+{
+  "prediction": 0,
+  "label": "Not Satisfied",
+  "probability": 0.0
+}
+```
+
+**Interpretation:** The model is certain this passenger is not satisfied. All services rated 1/5, long queue times (5/5), and the profile of a business traveler traveling alone in January (typically the most critical demographic) all contribute to a strong dissatisfaction prediction.
+
+---
+
+### Example 3 — Borderline Passenger 
+
+A middle-aged leisure traveler with mixed ratings.
+
+**Input:**
+```json
+{
+  "process": "Boarding",
+  "month": "March",
+  "connection": "Boarded at the airport",
+  "ticket_purchased_by": "By the passenger",
+  "age_group": "46 to 55 years",
+  "trip_purpose": "Leisure",
+  "traveling_alone": "Yes",
+  "boarding_lounge_comfort": 3,
+  "overall_airport_cleanliness": 3,
+  "restrooms": 3,
+  "restroom_cleanliness": 3,
+  "restroom_maintenance": 3,
+  "parking": 3,
+  "parking_facility_quality": 3,
+  "parking_value_for_money": 2,
+  "baggage_claim_process": 3,
+  "checkin_process": 3,
+  "checkin_queue_wait_time": 3,
+  "security_screening_process": 3,
+  "security_queue_wait_time": 3,
+  "food_beverage_outlets": 3,
+  "food_beverage_price_quality": 2,
+  "retail_outlets": 3,
+  "retail_price_quality": 2,
+  "thermal_comfort": 3,
+  "acoustic_comfort": 3,
+  "airline_service": 3,
+  "staff_courtesy": 3,
+  "seat_availability": 3,
+  "power_outlet_availability": 3,
+  "airport_internet": 3,
+  "signage": 3,
+  "location_and_movement": 3
+}
+```
+
+**Response:**
+```json
+{
+  "prediction": 0,
+  "label": "Not Satisfied",
+  "probability": 0.42
+}
+```
+
+**Interpretation:** With all ratings at 3/5 (average) and price-related services rated lower (2/5), the model predicts slight dissatisfaction. This aligns with our EDA finding that price quality is the lowest-rated service overall. The probability of 42% indicates uncertainty — this passenger is close to the decision boundary.
