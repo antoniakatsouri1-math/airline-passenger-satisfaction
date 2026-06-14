@@ -1,9 +1,7 @@
 # Airline Passenger Satisfaction - EDA
-
 Analysis of a real airline passenger satisfaction dataset using Python.
 
 ## Dataset
-
 - **Source:** [Kaggle - Real Airline Passenger Satisfaction Dataset](https://www.kaggle.com/datasets/rustam32/real-airline-passenger-satisfaction-dataset)
 - **Samples:** 57,514
 - **Features:** 145
@@ -29,7 +27,7 @@ Analysis of a real airline passenger satisfaction dataset using Python.
 
 ---
 
-## Target Variable Distribution
+## 🎯 Target Variable Distribution
 
 The dataset is **perfectly balanced** — no class imbalance issues.
 
@@ -40,69 +38,61 @@ The dataset is **perfectly balanced** — no class imbalance issues.
 
 ---
 
-## Exploratory Data Analysis
+## 📈 Exploratory Data Analysis
 
 ### Satisfaction Rate by Age Group
-
 Younger passengers (18-25) are the most satisfied (60%), while the 36-45 age group is the hardest to please (45%).
 
-![Satisfaction by Age Group](plots/liked_by_age_group.png)
+![Satisfaction by Age Group](EDA/plots/liked_by_age_group.png)
 
 ---
 
 ### Satisfaction Rate by Flight Type
-
 Almost no difference between Domestic and International flights (~50%). Flight type does **not** significantly affect satisfaction (chi2 p=0.097).
 
-![Satisfaction by Flight Type](plots/liked_by_flight_type.png)
+![Satisfaction by Flight Type](EDA/plots/liked_by_flight_type.png)
 
 ---
 
 ### Satisfaction Rate by Process
-
 Passengers rated the **Disembarkation** process slightly better (51.5%) than **Boarding** (48.9%).
 
-![Satisfaction by Process](plots/liked_by_process.png)
+![Satisfaction by Process](EDA/plots/liked_by_process.png)
 
 ---
 
 ### Satisfaction Rate by Trip Purpose
-
 Sports travelers are the most satisfied (70%), while Unknown/no answer respondents are the least satisfied (33%). Business travelers sit at 43%.
 
-![Satisfaction by Trip Purpose](plots/liked_by_trip_purpose.png)
+![Satisfaction by Trip Purpose](EDA/plots/liked_by_trip_purpose.png)
 
 ---
 
 ### Top 10 Features Correlated with Satisfaction
-
 `boarding_lounge_comfort` is the single strongest predictor of satisfaction (r=0.55), followed by `parking` and `baggage_claim_process`.
 
-![Top 10 Correlations](plots/top10_correlations.png)
+![Top 10 Correlations](EDA/plots/top10_correlations.png)
 
 ---
 
 ### 10 Lowest Rated Services
-
 Price-related services consistently receive the lowest ratings. Passengers feel that food, beverages and retail are **overpriced** relative to quality.
 
-![Lowest Rated Services](plots/lowest_rated_services.png)
+![Lowest Rated Services](EDA/plots/lowest_rated_services.png)
 
 ---
 
 ### Business vs Leisure - Top Features Comparison
-
 Leisure travelers consistently rate airport services higher than Business travelers across all top features.
 
-![Business vs Leisure](plots/business_vs_leisure.png)
+![Business vs Leisure](EDA/plots/business_vs_leisure.png)
 
 ---
 
 ### Correlation Heatmap - Top 15 Features
-
 `overall_airport_cleanliness` and `restrooms` are highly correlated (0.61), suggesting passengers evaluate them together. `parking` and `airline_service` are also strongly linked (1.00 diagonal expected).
 
-![Correlation Heatmap](plots/heatmap_top_features.png)
+![Correlation Heatmap](EDA/plots/heatmap_top_features.png)
 
 ---
 
@@ -118,13 +108,15 @@ Leisure travelers consistently rate airport services higher than Business travel
 | **Not significant** | flight_type, gender |
 | **Traveling with company** | Slightly more satisfied (51.6% vs 47.5%) |
 
-##  Requirements
+---
+
+## Requirements
 
 ```bash
 pip install pandas matplotlib seaborn scipy
 ```
 
-## How to Run
+##  How to Run
 
 ```bash
 python main.py
@@ -134,4 +126,4 @@ Results are saved in:
 - `eda_results.txt`
 - `eda_analysis_results.txt`
 - `explore_results.txt`
-- `plots/` folder (8 PNG files)
+- `EDA/plots/` folder (8 PNG files)
