@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def run():
-    df = pd.read_csv('../dataset.csv')
+    df = pd.read_csv('data/dataset.csv')
 
     with open('eda_results.txt', 'w') as f:
         f.write("=== LIKED distribution ===\n")

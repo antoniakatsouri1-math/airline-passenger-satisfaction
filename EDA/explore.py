@@ -1,7 +1,7 @@
 import pandas as pd
 
 def run():
-    df = pd.read_csv('../dataset.csv')
+    df = pd.read_csv('data/dataset.csv')
 
     with open('explore_results.txt', 'w', encoding='utf-8') as f:
         f.write("=== Shape ===\n")

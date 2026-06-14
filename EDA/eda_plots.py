@@ -6,7 +6,7 @@ import os
 os.makedirs('plots', exist_ok=True)
 
 def run():
-    df = pd.read_csv('../dataset.csv')
+    df = pd.read_csv('data/dataset.csv')
 
     fig, ax = plt.subplots(figsize=(10, 5))
     df.groupby('age_group')['liked'].mean().sort_values().plot(kind='bar', ax=ax, color='steelblue')

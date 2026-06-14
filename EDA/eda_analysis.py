@@ -7,7 +7,7 @@ import os
 os.makedirs('plots', exist_ok=True)
 
 def run():
-    df = pd.read_csv('../dataset.csv')
+    df = pd.read_csv('data/dataset.csv')
     rating_cols = [col for col in df.columns
                    if col not in df.select_dtypes(include='object').columns
                    and '_is_applicable' not in col

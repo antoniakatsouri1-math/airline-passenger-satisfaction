@@ -1,0 +1,8 @@
+=== Model Comparison ===
+                     Accuracy  Precision  Recall      F1  AUC-ROC
+Model                                                            
+Random Forest          0.8044     0.7735  0.8609  0.8149   0.8832
+Logistic Regression    0.8075     0.7890  0.8397  0.8135   0.8811
+Neural Network         0.8173     0.7975  0.8505  0.8232   0.8946
+
+Best model (F1): Neural Network
