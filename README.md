@@ -2,14 +2,14 @@
 
 Analysis of a real airline passenger satisfaction dataset using Python.
 
-## 📁 Dataset
+## Dataset
 
 - **Source:** [Kaggle - Real Airline Passenger Satisfaction Dataset](https://www.kaggle.com/datasets/rustam32/real-airline-passenger-satisfaction-dataset)
 - **Samples:** 57,514
 - **Features:** 145
 - **Target variable:** `liked` (0 = Not Satisfied, 1 = Satisfied)
 
-## 📊 Dataset Overview
+## Dataset Overview
 
 | Property | Value |
 |----------|-------|
@@ -29,7 +29,7 @@ Analysis of a real airline passenger satisfaction dataset using Python.
 
 ---
 
-## 🎯 Target Variable Distribution
+## Target Variable Distribution
 
 The dataset is **perfectly balanced** — no class imbalance issues.
 
@@ -40,7 +40,7 @@ The dataset is **perfectly balanced** — no class imbalance issues.
 
 ---
 
-## 📈 Exploratory Data Analysis
+## Exploratory Data Analysis
 
 ### Satisfaction Rate by Age Group
 
@@ -106,7 +106,7 @@ Leisure travelers consistently rate airport services higher than Business travel
 
 ---
 
-## 🔍 Key Findings
+## Key Findings
 
 | Finding | Detail |
 |---------|--------|
@@ -118,7 +118,7 @@ Leisure travelers consistently rate airport services higher than Business travel
 | **Not significant** | flight_type, gender |
 | **Traveling with company** | Slightly more satisfied (51.6% vs 47.5%) |
 
-## 🛠️ Requirements
+##  Requirements
 
 ```bash
 pip install pandas matplotlib seaborn scipy
